@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+data.pdf
+data_converted_end.csv
+data_converted_temp.csv
+
 # C extensions
 *.so
 
