@@ -1,30 +1,27 @@
 import os
 import shutil
 
-origin_directory = "/home/Benny/Downloads/Fotos Google Drive/"
+
+def copy_files(origin, destin):
+    count = 0
+    for root, _, files in os.walk(origin):
+        for nom_arxiu in files:
+            ruta_arxiu = os.path.join(root,nom_arxiu)
+            ruta_arxiu_dest = os.path.join(destin,nom_arxiu)
+            #print(ruta_arxiu)
+            if os.path.exists(ruta_arxiu_dest):
+                os.remove(ruta_arxiu_dest)
+
+            if os.path.isfile(ruta_arxiu) and not nom_arxiu.endswith((".json",".JSON")):
+                shutil.move(ruta_arxiu, destin)
+                print(ruta_arxiu)
+                count+=1           
+            elif os.path.isfile(ruta_arxiu) and nom_arxiu.endswith((".json",".JSON")):
+                os.remove(ruta_arxiu)
+
+    print("Copia finalitzada " + "Cantitat de arxius = ", count)
+
+origin_directory = "/home/Benny/Downloads/Fotos test/"
 # destination_directory = "/home/Benny/Downloads/Temp/"
-destination_directory = "/media/Benny/TOSHIBA EXT/7.-Fotos/Fotos_26May23_GoogleFotos/"
-count = 0
-
-for nom_dir_prin in os.listdir(origin_directory):
-    ruta_dir_1 = os.path.join(origin_directory,nom_dir_prin) + "/Takeout/Google Fotos/"
-    # print(ruta_dir_1)
-    for nom_dir_sec in os.listdir(ruta_dir_1):
-       ruta_dir_2 = os.path.join(ruta_dir_1,nom_dir_sec) 
-    #    print(ruta_dir_2)
-       if os.path.isdir(ruta_dir_2):
-            for nom_arxiu in os.listdir(ruta_dir_2): 
-                ruta_arxiu = os.path.join(ruta_dir_2,nom_arxiu)
-                ruta_arxiu_dest = os.path.join(destination_directory,nom_arxiu)
-                #print(ruta_arxiu)
-                if os.path.exists(ruta_arxiu_dest):
-                    os.remove(ruta_arxiu_dest)
-
-                if os.path.isfile(ruta_arxiu) and not nom_arxiu.endswith((".json",".JSON")):
-                    shutil.move(ruta_arxiu, destination_directory)
-                    print(ruta_arxiu)
-                    count+=1           
-                elif os.path.isfile(ruta_arxiu) and nom_arxiu.endswith((".json",".JSON")):
-                    os.remove(ruta_arxiu)
-
-print("Move Completed", count)
+destination_directory = "/home/Benny/Downloads/Fotos temp/"
+copy_files(origin_directory,destination_directory)
